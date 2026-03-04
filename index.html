@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capitólio 360 Turismo | Experiência Premium no Mar de Minas</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Syne:wght@400..800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#050505',
+                        accent: '#00d2ff', // Verde-água/Azul
+                        gold: '#D4AF37',
+                    },
+                    fontFamily: {
+                        display: ['Syne', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @layer utilities {
+            .glass {
+                background: rgba(255, 255, 255, 0.03);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                border: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            .text-gradient {
+                background: linear-gradient(to right, #fff, #999);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        }
+
+        body {
+            background-color: #050505;
+            color: #e5e5e5;
+            overflow-x: hidden;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(to bottom, rgba(5, 5, 5, 0.3), rgba(5, 5, 5, 1));
+        }
+
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 30s linear infinite;
+        }
+
+        @keyframes marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        .cta-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 210, 255, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(0, 210, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 210, 255, 0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-6 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto flex justify-between items-center glass rounded-full px-8 py-4">
+            <div class="flex items-center gap-2">
+                <span class="font-display text-2xl font-bold tracking-tighter text-white">CAPITÓLIO<span class="text-accent">360</span></span>
+            </div>
+            
+            <nav class="hidden md:flex gap-8 text-sm font-medium uppercase tracking-widest">
+                <a href="#inicio" class="hover:text-accent transition-colors">Início</a>
+                <a href="#experiencias" class="hover:text-accent transition-colors">Experiências</a>
+                <a href="#sobre" class="hover:text-accent transition-colors">Sobre</a>
+                <a href="#contato" class="hover:text-accent transition-colors">Contato</a>
+            </nav>
+
+            <a href="https://wa.me/5537999260270?text=Olá,%20gostaria%20de%20reservar%20um%20passeio%20com%20a%20Capitólio%20360%20Turismo" target="_blank" class="bg-white text-dark px-6 py-2 rounded-full text-sm font-bold hover:bg-accent hover:text-white transition-all duration-300">
+                RESERVAR AGORA
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="relative h-screen w-full flex items-center justify-center overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?q=80&w=2070&auto=format&fit=crop" 
+                 alt="Cânions de Capitólio" 
+                 class="w-full h-full object-cover scale-110"
+                 id="hero-img"
+                 referrerPolicy="no-referrer">
+            <div class="absolute inset-0 hero-gradient z-10"></div>
+        </div>
+
+        <div class="relative z-20 text-center px-6 max-w-5xl">
+            <h1 class="font-display text-5xl md:text-8xl font-bold leading-[0.9] tracking-tighter text-white mb-6 opacity-0 translate-y-20" id="hero-title">
+                UM NOVO CONCEITO EM <br>
+                <span class="italic font-serif text-accent">PASSEIOS NÁUTICOS</span>
+            </h1>
+            <p class="font-sans text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10 opacity-0 translate-y-10" id="hero-sub">
+                Explore o Mar de Minas com exclusividade. Lanchas de alto padrão e hospedagens de luxo em Escarpas do Lago.
+            </p>
+            <div class="opacity-0 translate-y-10" id="hero-cta">
+                <a href="#experiencias" class="cta-pulse inline-block bg-accent text-dark px-10 py-5 rounded-full font-bold text-lg hover:scale-105 transition-transform">
+                    DESCOBRIR EXPERIÊNCIA
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 animate-bounce">
+            <svg class="w-6 h-6 text-white opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Authority Bar (Marquee) -->
+    <section class="py-12 border-y border-white/5 bg-dark relative z-20">
+        <div class="marquee-container">
+            <div class="marquee-content flex gap-20 items-center">
+                <span class="text-4xl md:text-6xl font-display font-black text-white/10 uppercase italic">Escarpas do Lago</span>
+                <span class="text-4xl md:text-6xl font-display font-black text-white/10 uppercase italic">Cânions de Furnas</span>
+                <span class="text-4xl md:text-6xl font-display font-black text-white/10 uppercase italic">Mar de Minas</span>
+                <span class="text-4xl md:text-6xl font-display font-black text-white/10 uppercase italic">Capitólio 360</span>
+                <span class="text-4xl md:text-6xl font-display font-black text-white/10 uppercase italic">Exclusividade</span>
+                <!-- Duplicate for seamless loop -->
+                <span class="text-4xl md:text-6xl font-display font-black text-white/10 uppercase italic">Escarpas do Lago</span>
+                <span class="text-4xl md:text-6xl font-display font-black text-white/10 uppercase italic">Cânions de Furnas</span>
+                <span class="text-4xl md:text-6xl font-display font-black text-white/10 uppercase italic">Mar de Minas</span>
+                <span class="text-4xl md:text-6xl font-display font-black text-white/10 uppercase italic">Capitólio 360</span>
+                <span class="text-4xl md:text-6xl font-display font-black text-white/10 uppercase italic">Exclusividade</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Differentials (Bento Grid) -->
+    <section id="experiencias" class="py-24 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="mb-16 text-center reveal">
+            <h2 class="font-display text-4xl md:text-6xl font-bold text-white mb-4">DIFERENCIAIS 360</h2>
+            <p class="text-gray-400 max-w-xl mx-auto">Tudo o que você precisa para uma jornada inesquecível no maior lago de água doce do Brasil.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-[300px]">
+            <!-- Boat Card -->
+            <div class="md:col-span-2 md:row-span-2 glass rounded-3xl overflow-hidden group relative reveal">
+                <img src="https://i.imgur.com/TalKXLy.jpeg" 
+                     alt="Lancha Premium" 
+                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                     referrerPolicy="no-referrer">
+                <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-80"></div>
+                <div class="absolute bottom-0 left-0 p-8">
+                    <span class="text-accent font-bold text-sm tracking-widest uppercase mb-2 block">Navegação</span>
+                    <h3 class="text-3xl font-display font-bold text-white mb-2">LANCHA NOVÍSSIMA</h3>
+                    <p class="text-gray-300 text-sm max-w-xs">Capacidade para até 20 pessoas com conforto absoluto e som de alta fidelidade.</p>
+                </div>
+            </div>
+
+            <!-- House Card -->
+            <div class="md:col-span-2 glass rounded-3xl overflow-hidden group relative reveal">
+                <img src="https://i.imgur.com/pv32oEK.jpeg" 
+                     alt="Casa de Luxo" 
+                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                     referrerPolicy="no-referrer">
+                <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-80"></div>
+                <div class="absolute bottom-0 left-0 p-8">
+                    <h3 class="text-2xl font-display font-bold text-white mb-1">CASA COM 8 SUÍTES</h3>
+                    <p class="text-gray-300 text-sm">Hospedagem premium para até 15 pessoas em Escarpas.</p>
+                </div>
+            </div>
+
+            <!-- Location Card -->
+            <div class="glass rounded-3xl p-8 flex flex-col justify-end reveal">
+                <div class="mb-auto">
+                    <svg class="w-10 h-10 text-accent mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-display font-bold text-white mb-2">LOCALIZAÇÃO PRIVILEGIADA</h3>
+                <p class="text-gray-400 text-sm">Base em Escarpas do Lago, o ponto mais nobre de Capitólio.</p>
+            </div>
+
+            <!-- Experience Card -->
+            <div class="glass rounded-3xl p-8 flex flex-col justify-end reveal">
+                <div class="mb-auto">
+                    <svg class="w-10 h-10 text-accent mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-display font-bold text-white mb-2">DAY TOUR COMPLETO</h3>
+                <p class="text-gray-400 text-sm">7 horas de imersão total nos principais pontos turísticos.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About / Services -->
+    <section id="sobre" class="py-24 bg-white/5 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div class="reveal">
+                <span class="text-accent font-bold tracking-widest uppercase mb-4 block">Nossa História</span>
+                <h2 class="font-display text-4xl md:text-6xl font-bold text-white mb-8">UM NOVO CONCEITO EM TURISMO</h2>
+                <p class="text-gray-300 text-lg mb-8 leading-relaxed">
+                    A Capitólio 360 Turismo nasceu para elevar o padrão das experiências náuticas em Minas Gerais. Não oferecemos apenas um passeio, mas uma jornada completa de conforto, segurança e memórias inesquecíveis.
+                </p>
+                <div class="grid grid-cols-2 gap-8 mb-10">
+                    <div>
+                        <span class="block text-4xl font-display font-bold text-white">20+</span>
+                        <span class="text-gray-500 text-sm uppercase tracking-wider">Capacidade Lancha</span>
+                    </div>
+                    <div>
+                        <span class="block text-4xl font-display font-bold text-white">08</span>
+                        <span class="text-gray-500 text-sm uppercase tracking-wider">Suítes de Luxo</span>
+                    </div>
+                </div>
+                <a href="https://wa.me/5537999260270?text=Olá,%20gostaria%20de%20falar%20com%20um%20especialista%20da%20Capitólio%20360%20Turismo" target="_blank" class="inline-flex items-center gap-3 text-white font-bold group">
+                    FALAR COM UM ESPECIALISTA
+                    <span class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-accent group-hover:border-accent transition-all">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </span>
+                </a>
+            </div>
+            <div class="relative reveal">
+                <div class="aspect-[4/5] rounded-3xl overflow-hidden">
+                    <img src="https://i.imgur.com/SUaEF2C.jpeg" 
+                         alt="Passeio de Lancha" 
+                         class="w-full h-full object-cover"
+                         referrerPolicy="no-referrer">
+                </div>
+                <!-- Floating Card -->
+                <div class="absolute -bottom-10 -left-10 glass p-8 rounded-2xl hidden md:block">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-dark" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        </div>
+                        <div>
+                            <p class="text-white font-bold">Avaliação 5 Estrelas</p>
+                            <p class="text-gray-400 text-xs">No Google Reviews</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="text-center mb-16 reveal">
+            <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-4">O QUE DIZEM NOSSOS CLIENTES</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Testimonial 1 -->
+            <div class="glass p-10 rounded-3xl reveal">
+                <div class="flex gap-1 mb-6">
+                    <span class="text-gold">★</span><span class="text-gold">★</span><span class="text-gold">★</span><span class="text-gold">★</span><span class="text-gold">★</span>
+                </div>
+                <p class="text-gray-300 italic mb-8">"Experiência fantástica! A lancha é impecável e o roteiro pelos cânions foi de tirar o fôlego. Atendimento nota 1000."</p>
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-gray-800"></div>
+                    <div>
+                        <p class="text-white font-bold">Ricardo Santos</p>
+                        <p class="text-gray-500 text-xs uppercase">São Paulo - SP</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Testimonial 2 -->
+            <div class="glass p-10 rounded-3xl reveal">
+                <div class="flex gap-1 mb-6">
+                    <span class="text-gold">★</span><span class="text-gold">★</span><span class="text-gold">★</span><span class="text-gold">★</span><span class="text-gold">★</span>
+                </div>
+                <p class="text-gray-300 italic mb-8">"Alugamos a casa e a lancha. Foi o melhor feriado da nossa família. A casa é enorme e muito confortável."</p>
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-gray-800"></div>
+                    <div>
+                        <p class="text-white font-bold">Mariana Oliveira</p>
+                        <p class="text-gray-500 text-xs uppercase">Belo Horizonte - MG</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Testimonial 3 -->
+            <div class="glass p-10 rounded-3xl reveal">
+                <div class="flex gap-1 mb-6">
+                    <span class="text-gold">★</span><span class="text-gold">★</span><span class="text-gold">★</span><span class="text-gold">★</span><span class="text-gold">★</span>
+                </div>
+                <p class="text-gray-300 italic mb-8">"Passeio de dia inteiro super completo. O guia conhecia cada cantinho escondido do lago. Recomendo muito!"</p>
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-gray-800"></div>
+                    <div>
+                        <p class="text-white font-bold">André Luiz</p>
+                        <p class="text-gray-500 text-xs uppercase">Goiânia - GO</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contato" class="py-20 border-t border-white/5 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+            <div class="md:col-span-2">
+                <span class="font-display text-3xl font-bold tracking-tighter text-white mb-6 block">CAPITÓLIO<span class="text-accent">360</span></span>
+                <p class="text-gray-400 max-w-sm mb-8">
+                    Sua porta de entrada para o paraíso. Experiências exclusivas no Mar de Minas, saindo das Escarpas do Lago.
+                </p>
+                <div class="flex gap-4">
+                    <a href="https://www.instagram.com/capitolio360turismo/" target="_blank" class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-accent hover:text-dark transition-all">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.058-1.69-.072-4.949-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="text-white font-bold mb-6 uppercase tracking-widest text-sm">Contatos</h4>
+                <ul class="space-y-4 text-gray-400 text-sm">
+                    <li><a href="https://wa.me/5537999260270?text=Olá,%20gostaria%20de%20mais%20informações%20sobre%20a%20Capitólio%20360%20Turismo" target="_blank" class="hover:text-accent">CAPITÓLIO360 TURÍSMO</a></li>
+                    <li>Escarpas do Lago, Capitólio - MG</li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-6 uppercase tracking-widest text-sm">Links Rápidos</h4>
+                <ul class="space-y-4 text-gray-400 text-sm">
+                    <li><a href="#inicio" class="hover:text-accent">Início</a></li>
+                    <li><a href="#experiencias" class="hover:text-accent">Experiências</a></li>
+                    <li><a href="#sobre" class="hover:text-accent">Sobre Nós</a></li>
+                    <li><a href="https://wa.me/5537999260270?text=Olá,%20gostaria%20de%20fazer%20uma%20reserva%20com%20a%20Capitólio%20360%20Turismo" target="_blank" class="hover:text-accent">Reservas</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto pt-10 border-t border-white/5 flex flex-col md:row justify-between items-center gap-4 text-gray-500 text-xs uppercase tracking-widest">
+            <p>© 2026 Capitólio 360 Turismo. Todos os direitos reservados.</p>
+            <p>Desenvolvido para experiências extraordinárias.</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/5537999260270?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20passeios%20da%20Capitólio%20360%20Turismo" target="_blank" class="fixed bottom-8 right-8 z-50 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-300">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </a>
+
+    <script>
+        // GSAP Initialization
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('py-4');
+                header.querySelector('.max-w-7xl').classList.add('bg-dark/80');
+            } else {
+                header.classList.remove('py-4');
+                header.querySelector('.max-w-7xl').classList.remove('bg-dark/80');
+            }
+        });
+
+        // Hero Entrance
+        const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+        
+        tl.to("#hero-img", { scale: 1, duration: 2.5 })
+          .to("#hero-title", { opacity: 1, y: 0, duration: 1.2 }, "-=2")
+          .to("#hero-sub", { opacity: 1, y: 0, duration: 1 }, "-=0.8")
+          .to("#hero-cta", { opacity: 1, y: 0, duration: 1 }, "-=0.8");
+
+        // Scroll Reveal
+        const reveals = document.querySelectorAll('.reveal');
+        reveals.forEach((el) => {
+            gsap.fromTo(el, 
+                { opacity: 0, y: 50 },
+                { 
+                    opacity: 1, 
+                    y: 0, 
+                    duration: 1,
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 85%",
+                        toggleActions: "play none none none"
+                    }
+                }
+            );
+        });
+
+        // Parallax Effect for Hero
+        gsap.to("#hero-img", {
+            yPercent: 20,
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#inicio",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+
+        // Hover sophistication for cards
+        const cards = document.querySelectorAll('.glass');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                gsap.to(card, { y: -10, duration: 0.3, ease: "power2.out" });
+            });
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, { y: 0, duration: 0.3, ease: "power2.out" });
+            });
+        });
+    </script>
+</body>
+</html>
